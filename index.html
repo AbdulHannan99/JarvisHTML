@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jarvis &mdash; General Knowledge Assistant</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!--
+    jQuery loaded here, BEFORE app.js.
+    Order matters: app.js uses $() everywhere — if jQuery isn't loaded first, $ is undefined and the page breaks.
+    Vanilla JS equivalent: <script src="app.js"></script> (no dependency needed).
+    jQuery CDN: served by jQuery's own CDN, cached by browsers across millions of sites.
+  -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-brand">
+      <div class="avatar">&#x1F916;</div>
+      <div class="brand-info">
+        <h1><span>Jarvis</span></h1>
+        <p>General Knowledge Assistant</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <nav class="site-nav">
+        <a href="index.html" class="active">💬 Chat</a>
+        <a href="learn.html">📖 Learn</a>
+      </nav>
+      <button class="btn-disconnect" id="btnDisconnect" title="Disconnect API key">
+        &#x2715; Disconnect
+      </button>
+      <div class="status-badge" id="statusBadge">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">Offline</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- API Key Panel -->
+  <div class="api-panel" id="apiPanel">
+    <div class="api-panel-title">
+      <span class="key-icon">&#x1F511;</span>
+      Connect Your OpenAI API Key
+    </div>
+    <p>
+      Enter your OpenAI API key below to activate Jarvis. Your key is stored only in
+      <strong>session memory</strong> and is never saved to disk or sent anywhere except
+      directly to OpenAI. Get your key at
+      <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">platform.openai.com</a>.
+    </p>
+    <div class="api-input-row">
+      <input
+        type="password"
+        class="api-input"
+        id="apiKeyInput"
+        placeholder="sk-proj-..."
+        autocomplete="off"
+        spellcheck="false"
+        maxlength="200"
+      />
+      <button class="btn-connect" id="btnConnect">Connect</button>
+    </div>
+    <div class="api-error" id="apiError"></div>
+  </div>
+
+  <!-- Chat Window -->
+  <div class="chat-wrapper" id="chatWrapper">
+
+    <div class="locked-overlay" id="lockedOverlay">
+      &#x1F512; &nbsp;Connect your API key above to start chatting
+    </div>
+
+    <div class="chat-window" id="chatWindow">
+
+      <div class="welcome-msg" id="welcomeMsg">
+        <div class="welcome-icon">&#x1F310;</div>
+        <h2>Ask me anything about the world!</h2>
+        <p>I'm your general knowledge companion &mdash; history, science, geography, literature, technology, arts, sports, and trivia. Try a topic below or type your own question.</p>
+        <div class="topic-chips">
+          <div class="chip" onclick="sendChip(this)">&#x1F3DB;&#xFE0F; Ancient Rome</div>
+          <div class="chip" onclick="sendChip(this)">&#x1F9EC; DNA &amp; Genetics</div>
+          <div class="chip" onclick="sendChip(this)">&#x1F30D; World Capitals</div>
+          <div class="chip" onclick="sendChip(this)">&#x26A1; How electricity works</div>
+          <div class="chip" onclick="sendChip(this)">&#x1F3AD; Shakespeare</div>
+          <div class="chip" onclick="sendChip(this)">&#x1F680; Space exploration</div>
+          <div class="chip" onclick="sendChip(this)">&#x26BD; Football history</div>
+          <div class="chip" onclick="sendChip(this)">&#x1F3A8; Renaissance art</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Typing indicator -->
+    <div class="typing-indicator" id="typingIndicator">
+      <div class="msg-avatar" style="width:32px;height:32px;font-size:14px;">&#x1F916;</div>
+      <div class="typing-bubble">
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      </div>
+    </div>
+
+    <div class="chat-divider"></div>
+
+    <!-- Input bar -->
+    <div class="input-bar">
+      <div class="input-wrap">
+        <textarea
+          class="chat-input"
+          id="chatInput"
+          placeholder="Ask a general knowledge question&hellip;"
+          rows="1"
+          maxlength="800"
+          disabled
+        ></textarea>
+        <span class="char-counter" id="charCounter">0/800</span>
+      </div>
+      <button class="btn-clear" id="btnClear" title="Clear conversation">&#x1F5D1;</button>
+      <button class="btn-send" id="btnSend" disabled title="Send (Enter)">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="kb-hint">
+      <kbd>Enter</kbd> to send &nbsp;&middot;&nbsp; <kbd>Shift</kbd>+<kbd>Enter</kbd> for new line
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    Jarvis communicates directly with <span>OpenAI</span> from your browser. Your key is only in session memory.
+    &nbsp;&middot;&nbsp; Powered by <span>GPT-4o mini</span> &nbsp;&middot;&nbsp; General Knowledge only.
+  </footer>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>

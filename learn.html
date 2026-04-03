@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learn &mdash; Vanilla JS vs jQuery</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="header-brand">
+      <div class="avatar">&#x1F916;</div>
+      <div class="brand-info">
+        <h1><span>Jarvis</span></h1>
+        <p>General Knowledge Assistant</p>
+      </div>
+    </div>
+    <nav class="site-nav">
+      <a href="index.html">&#x1F4AC; Chat</a>
+      <a href="learn.html" class="active">&#x1F4D6; Learn</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <div style="margin-bottom: 28px;">
+    <h2>&#x1F4D6; <span>Vanilla JS vs jQuery</span></h2>
+    <p class="page-subtitle">A quick reference guide used to build this very app. Open app.js alongside this page to follow along.</p>
+  </div>
+
+  <!-- What is jQuery -->
+  <div class="card">
+    <h3>&#x2753; What is jQuery?</h3>
+    <p>
+      jQuery is a JavaScript <strong style="color:var(--text-primary)">library</strong> — a collection of pre-written functions
+      that make common tasks shorter to write. It was created in 2006 to solve cross-browser
+      pain points that no longer exist in modern browsers. Today it is still widely used in
+      legacy codebases and is a great teaching tool because the before/after comparison
+      makes DOM concepts very clear.
+    </p>
+    <ul style="margin-top: 14px;">
+      <li>You load it once via a <code style="color:var(--accent)">&lt;script&gt;</code> tag — then <code style="color:var(--accent)">$</code> is available everywhere.</li>
+      <li>Every <code style="color:var(--accent)">$(...)</code> call returns a <strong style="color:var(--text-primary)">jQuery object</strong> — a wrapper around one or more DOM elements.</li>
+      <li>jQuery objects have chainable methods: <code style="color:var(--accent)">.text().addClass().on()</code> — all in one line.</li>
+      <li>To get the raw DOM element back out, use <code style="color:var(--accent)">$el[0]</code>.</li>
+    </ul>
+  </div>
+
+  <!-- Rule of Thumb -->
+  <div class="card">
+    <h3>&#x1F4CC; Rule of Thumb — What we kept Vanilla in this app</h3>
+    <p>Not everything benefits from jQuery. In this project we made deliberate choices:</p>
+    <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top: 14px;">
+      <div>
+        <span class="tag tag-jquery">jQuery</span>
+        <ul style="margin-top: 8px;">
+          <li>Selecting DOM elements</li>
+          <li>Adding / removing CSS classes</li>
+          <li>Reading &amp; writing input values</li>
+          <li>Creating &amp; inserting elements</li>
+          <li>All event listeners</li>
+          <li>Animated scroll</li>
+        </ul>
+      </div>
+      <div style="margin-left: 32px;">
+        <span class="tag tag-kept">Kept Vanilla JS</span>
+        <ul style="margin-top: 8px;">
+          <li><code style="color:var(--accent)">fetch()</code> + <code style="color:var(--accent)">async/await</code> — modern HTTP, jQuery's <code style="color:var(--accent)">$.ajax</code> is outdated</li>
+          <li><code style="color:var(--accent)">sessionStorage</code> — no jQuery equivalent</li>
+          <li><code style="color:var(--accent)">sanitize()</code> — uses raw DOM for XSS prevention</li>
+          <li><code style="color:var(--accent)">JSON.stringify / parse</code> — pure JS, no wrapping needed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compare Table -->
+  <div class="card">
+    <h3>&#x1F4CA; Side-by-Side Cheat Sheet</h3>
+    <p style="margin-bottom: 16px;">Every pattern used in <code style="color:var(--accent)">app.js</code>, with its vanilla equivalent shown first.</p>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th><span class="tag tag-vanilla">Vanilla JS</span></th>
+          <th><span class="tag tag-jquery">jQuery</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Select by ID</td>
+          <td>document.getElementById('x')</td>
+          <td>$('#x')</td>
+        </tr>
+        <tr>
+          <td>Select by class</td>
+          <td>document.querySelector('.x')</td>
+          <td>$('.x')</td>
+        </tr>
+        <tr>
+          <td>Read input value</td>
+          <td>el.value</td>
+          <td>$el.val()</td>
+        </tr>
+        <tr>
+          <td>Set input value</td>
+          <td>el.value = ''</td>
+          <td>$el.val('')</td>
+        </tr>
+        <tr>
+          <td>Read text content</td>
+          <td>el.textContent</td>
+          <td>$el.text()</td>
+        </tr>
+        <tr>
+          <td>Set text content</td>
+          <td>el.textContent = 'Hi'</td>
+          <td>$el.text('Hi')</td>
+        </tr>
+        <tr>
+          <td>Set inner HTML</td>
+          <td>el.innerHTML = '&lt;b&gt;Hi&lt;/b&gt;'</td>
+          <td>$el.html('&lt;b&gt;Hi&lt;/b&gt;')</td>
+        </tr>
+        <tr>
+          <td>Add CSS class</td>
+          <td>el.classList.add('active')</td>
+          <td>$el.addClass('active')</td>
+        </tr>
+        <tr>
+          <td>Remove CSS class</td>
+          <td>el.classList.remove('active')</td>
+          <td>$el.removeClass('active')</td>
+        </tr>
+        <tr>
+          <td>Toggle class conditionally</td>
+          <td>el.classList.toggle('x', bool)</td>
+          <td>$el.toggleClass('x', bool)</td>
+        </tr>
+        <tr>
+          <td>Set boolean property</td>
+          <td>el.disabled = true</td>
+          <td>$el.prop('disabled', true)</td>
+        </tr>
+        <tr>
+          <td>Focus an element</td>
+          <td>el.focus()</td>
+          <td>$el.focus()</td>
+        </tr>
+        <tr>
+          <td>Set inline CSS style</td>
+          <td>el.style.height = '40px'</td>
+          <td>$el.css('height', '40px')</td>
+        </tr>
+        <tr>
+          <td>Set multiple styles</td>
+          <td>el.style.opacity='0'; el.style.color='red'</td>
+          <td>$el.css({ opacity:'0', color:'red' })</td>
+        </tr>
+        <tr>
+          <td>Create element</td>
+          <td>document.createElement('div')</td>
+          <td>$('&lt;div&gt;')</td>
+        </tr>
+        <tr>
+          <td>Append to parent</td>
+          <td>parent.appendChild(el)</td>
+          <td>$el.appendTo($parent)</td>
+        </tr>
+        <tr>
+          <td>Prepend as first child</td>
+          <td>parent.insertBefore(el, parent.firstChild)</td>
+          <td>$parent.prepend($el)</td>
+        </tr>
+        <tr>
+          <td>Remove element</td>
+          <td>el.remove()</td>
+          <td>$el.remove()</td>
+        </tr>
+        <tr>
+          <td>Find descendants</td>
+          <td>el.querySelectorAll('.x')</td>
+          <td>$el.find('.x')</td>
+        </tr>
+        <tr>
+          <td>Remove all matching children</td>
+          <td>el.querySelectorAll('.x').forEach(e =&gt; e.remove())</td>
+          <td>$el.find('.x').remove()</td>
+        </tr>
+        <tr>
+          <td>Check parent exists</td>
+          <td>el.parentNode !== null</td>
+          <td>$el.parent().length &gt; 0</td>
+        </tr>
+        <tr>
+          <td>Check contains child</td>
+          <td>parent.contains(child)</td>
+          <td>$.contains(parent[0], child[0])</td>
+        </tr>
+        <tr>
+          <td>Animated scroll</td>
+          <td>el.scrollTo({ behavior: 'smooth' })</td>
+          <td>$el.animate({ scrollTop: val }, 300)</td>
+        </tr>
+        <tr>
+          <td>Attach event</td>
+          <td>el.addEventListener('click', fn)</td>
+          <td>$el.on('click', fn)</td>
+        </tr>
+        <tr>
+          <td>Remove event</td>
+          <td>el.removeEventListener('click', fn)</td>
+          <td>$el.off('click', fn)</td>
+        </tr>
+        <tr>
+          <td>DOM ready</td>
+          <td>window.addEventListener('load', fn)</td>
+          <td>$(document).ready(fn)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Key Differences -->
+  <div class="card">
+    <h3>&#x26A1; Key Differences to Remember</h3>
+    <ul>
+      <li><strong style="color:var(--text-primary)">.prop() vs .attr()</strong> — Use <code style="color:var(--accent)">.prop()</code> for boolean DOM properties (<code style="color:var(--accent)">disabled</code>, <code style="color:var(--accent)">checked</code>). Use <code style="color:var(--accent)">.attr()</code> for HTML attributes (<code style="color:var(--accent)">placeholder</code>, <code style="color:var(--accent)">href</code>).</li>
+      <li><strong style="color:var(--text-primary)">$el[0]</strong> — jQuery wraps DOM nodes. To pass a jQuery object to something that needs a raw DOM node (like <code style="color:var(--accent)">$.contains()</code>), unwrap with <code style="color:var(--accent)">[0]</code>.</li>
+      <li><strong style="color:var(--text-primary)">Chaining</strong> — jQuery methods return the jQuery object, so you can chain: <code style="color:var(--accent)">$el.text(msg).addClass('visible').focus()</code></li>
+      <li><strong style="color:var(--text-primary)">this inside .on()</strong> — In a jQuery event handler, <code style="color:var(--accent)">this</code> is the raw DOM element, not a jQuery object. Wrap it if needed: <code style="color:var(--accent)">$(this)</code></li>
+      <li><strong style="color:var(--text-primary)">$(document).ready vs window load</strong> — <code style="color:var(--accent)">ready</code> fires when HTML is parsed (earlier). <code style="color:var(--accent)">load</code> waits for images too. For DOM manipulation, <code style="color:var(--accent)">ready</code> is almost always what you want.</li>
+    </ul>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" style="margin-top: 12px;">
+    Part of the <span>Jarvis</span> training project &nbsp;&middot;&nbsp; Open <span>app.js</span> to see every pattern above in real code.
+  </footer>
+
+</div>
+
+</body>
+</html>
